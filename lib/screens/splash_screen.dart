@@ -1,0 +1,35 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+import 'categories_screen.dart';
+
+class SplashScreen extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return _SplashScreenState();
+  }
+
+}
+class _SplashScreenState extends State<SplashScreen>{
+  @override
+
+  void initState() {
+    super.initState();
+    Timer(
+      Duration(seconds: 3), // Adjust the duration as needed
+          () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => CategoriesScreen()),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.cyan,
+      body: Center(child: Text('Food App', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
+    );
+  }
+
+}
