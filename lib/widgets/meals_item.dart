@@ -1,11 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/models/meal.dart';
+import 'package:food_app/widgets/meal_item_info.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealsItem extends StatelessWidget {
-  const MealsItem({super.key, required this.meal});
+   MealsItem({super.key, required this.meal, required this.onSelectMeal});
   final Meal meal;
+
+  void Function(Meal meal) onSelectMeal;
+
+  String get complexitiyTest{
+    return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
+  }
+
+  String get afordabilityTest{
+    return meal.affordability.name[0].toUpperCase() + meal.affordability.name.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +25,18 @@ class MealsItem extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onSelectMeal(meal);
+        },
         child: Stack(
           children: [
             FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
               image: NetworkImage(meal.imageUrl),
-              fit: BoxFit.cover,height: 200,width: double.infinity,),
+              fit: BoxFit.cover,
+              height: 200,
+              width: double.infinity,
+            ),
             Positioned(
                 left: 0,
                 right: 0,
@@ -35,8 +51,25 @@ class MealsItem extends StatelessWidget {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.w400),
-                      )
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(height: 12,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MealItemInfo(icon: Icons.schedule,
+                              label: "${meal.duration} Minute" ),
+                          const SizedBox(width: 12,),
+                          MealItemInfo(icon: Icons.work,
+                              label: "$complexitiyTest" ),
+                          const SizedBox(width: 12,),
+                          MealItemInfo(icon: Icons.monetization_on,
+                              label: "$afordabilityTest" ),
+                        ],
+                      ),
                     ],
                   ),
                 ))
