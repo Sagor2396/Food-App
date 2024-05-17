@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/screens/meals_screen.dart';
 import 'package:food_app/widgets/category_grid_item.dart';
-
 import '../data/dummy_data.dart';
 import '../models/category.dart';
 
