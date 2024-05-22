@@ -3,13 +3,16 @@ import 'package:food_app/screens/meals_screen.dart';
 import 'package:food_app/widgets/category_grid_item.dart';
 import '../data/dummy_data.dart';
 import '../models/category.dart';
+import '../models/meal.dart';
 
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+  CategoriesScreen({super.key, required this.onToggleFavourite,required this.availableMeals});
+  void Function(Meal meal) onToggleFavourite;
+  final List<Meal> availableMeals;
 
   void _selectCategory(BuildContext context, Category category) {
-    final filteredMeals = dummyMeals
+    final filteredMeals = availableMeals
         .where((meal) => meal.categories.contains(category.id))
         .toList();
 
@@ -18,6 +21,7 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
           title: category.title,
           meals: filteredMeals,
+          onToggleFavourite: onToggleFavourite,
         ),
       ),
     ); // Navigator.push(context, route)
@@ -25,11 +29,7 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pick your category'),
-      ),
-      body: GridView(
+    return GridView(
         padding: const EdgeInsets.all(24),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -47,7 +47,6 @@ class CategoriesScreen extends StatelessWidget {
               },
             )
         ],
-      ),
     );
   }
 }

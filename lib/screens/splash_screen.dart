@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:food_app/screens/tabs_screen.dart';
 
 import 'categories_screen.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Duration(seconds: 3), // Adjust the duration as needed
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => CategoriesScreen()),
+        MaterialPageRoute(builder: (context) => TabsScreen()),
       ),
     );
   }
