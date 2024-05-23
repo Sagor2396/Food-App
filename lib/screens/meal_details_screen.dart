@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/data/dummy_data.dart';
 import '../models/meal.dart';
@@ -22,11 +23,14 @@ class MealDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              meal.imageUrl,
-              width: double.infinity,
-              height: 250,
-              fit: BoxFit.cover,
+            Hero(
+              tag: meal.id,
+              child: Image.network(
+                meal.imageUrl,
+                width: double.infinity,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(
               height: 12,
